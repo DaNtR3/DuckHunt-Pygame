@@ -3,6 +3,7 @@ import time
 from Classes.Duck import Duck
 from Classes.Dog import Dog
 from Classes.Player import Player
+from Classes.Menu import Menu
 
 
 class Game:
@@ -16,7 +17,6 @@ class Game:
         self.FPS = 60
         self.screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
         self.screen.fill((255, 255, 255))
-        self.border = pygame.Rect(0, 450, 1280, 20)
         self.caption = pygame.display.set_caption("DuckHunt by DaNtR3")
         self.logo = pygame.image.load("Assets/icon.jpg")
         self.icon = pygame.display.set_icon(self.logo)
@@ -30,6 +30,7 @@ class Game:
         self.player1 = Player()
         self.dog = Dog()
         self.duck = Duck()
+        self.menu = Menu()
         #----------------------------------------------------------------------
         
     def game_loop(self):
@@ -61,20 +62,24 @@ class Game:
 
                     print(pygame.mouse.get_pos())
                     print(self.duck.entities)
-            # Screen settings
-            self.screen.fill((255, 255, 255))
-            self.screen.blit(self.bg, (0, 0))
+            
+            self.menu.render_menu(self.screen, self.WIDTH, self.HEIGHT)
 
             # Character rendering
-            for ducks in self.duck.entities:
-                ducks.render_duck(self.screen)
+            if (1 == 0):
+                # Screen settings            
+                self.screen.fill((255, 255, 255))
+                self.screen.blit(self.bg, (0, 0))
+                for ducks in self.duck.entities:
+                    ducks.render_duck(self.screen)
 
-            self.dog.render_dog(self.screen)
-            self.player1.render_player_movements(pygame.key.get_pressed(), self.screen)
-
+                self.dog.render_dog(self.screen)
+                self.player1.render_player_movements(pygame.key.get_pressed(), self.screen)
+            
+            
             # Screen update
             pygame.display.update()
-            time.sleep(0)
+            #time.sleep(0)
             # Test code
             # print(self.duck.entities)
 
