@@ -8,12 +8,13 @@ class Menu:
         self.orange = (255, 153, 51)
         self.black = (0,0,0)
         self.light_blue = (11, 255, 232)
+        self.white = (255, 255, 255)
         self.green = (0, 255, 0)
         self.line_start_pos = (175, 225)
         self.line_end_pos = (1090, 225)
         self.font_title_size = 155
-        self.font_options_size = 20
-        self.font_option_obj = pygame.font.SysFont('M29_DUCK HOUND', self.font_options_size)
+        self.font_options_size = 35
+        self.font_option_obj = pygame.font.SysFont('Duck Hunt', self.font_options_size)
         self.font_title_obj = pygame.font.SysFont('M29_DUCK HOUND', self.font_title_size)
         self.text_duck = self.font_title_obj.render('DUCK', False, self.light_blue)
         self.text_hunt = self.font_title_obj.render('HUNT', False, self.light_blue)
@@ -23,7 +24,8 @@ class Menu:
         self.text_1_duck = self.font_option_obj.render('1 Duck', False, self.orange)
         self.text_2_ducks = self.font_option_obj.render('2 Ducks', False, self.orange)
         self.text_clay_shooting = self.font_option_obj.render('Clay shooting', False, self.orange)
-        self.text_top_score = self.font_option_obj.render('Top Score: 12000', False, self.green)
+        self.text_top_score = self.font_option_obj.render('Top Score = 12000', False, self.green)
+        self.text_author = self.font_option_obj.render('©2023 DaNtR3 CO..LTD.', False, self.white)
 
 
     def render_menu(self, display, WIDTH, HEIGHT):
@@ -35,7 +37,8 @@ class Menu:
         display.blit(self.text_game_a, (415, 435))
         display.blit(self.text_game_b, (415, 490))
         display.blit(self.text_game_c, (415, 545))
-        display.blit(self.text_1_duck, (715, 435))
-        display.blit(self.text_2_ducks, (715, 490))
-        display.blit(self.text_clay_shooting, (715, 545))
+        display.blit(self.text_1_duck, (790, 435))
+        display.blit(self.text_2_ducks, (790, 490))
+        display.blit(self.text_clay_shooting, (790, 545))
         display.blit(self.text_top_score, (540, 620))
+        display.blit(self.text_author, (500, 675))
