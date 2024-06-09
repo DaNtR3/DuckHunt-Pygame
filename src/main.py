@@ -32,18 +32,21 @@ class Game:
         self.duck = Duck()
         self.menu = Menu()
         #----------------------------------------------------------------------
-        
-    def game_loop(self):
-
-        pygame.time.set_timer(pygame.USEREVENT, 1)
-        
-        # Screen refresh rate
-        self.clock.tick(self.FPS)
-
-        # Randomly generating ducks
-        self.duck.ducks_generator(3)
-
+    
+    def game_a_loop(self):
+        self.duck.ducks_generator(4)
+            
         while True:
+            # Character rendering
+                # Screen settings            
+            self.screen.fill((255, 255, 255))
+            self.screen.blit(self.bg, (0, 0))
+            for ducks in self.duck.entities:
+                ducks.render_duck(self.screen)
+            self.dog.render_dog(self.screen)
+            self.player1.render_current_position(self.screen)
+            # Screen update
+            pygame.display.update()
             # Controls during the loop
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -56,27 +59,37 @@ class Game:
                             self.duck.entities[list_position - 1].delete_duck(pygame.mouse.get_pos(), self.duck,
                                                                               list_position)
                         else:
-                            self.duck.entities[list_position].delete_duck(pygame.mouse.get_pos(), self.duck,
-                                                                          list_position)
-                        print(len(self.duck.entities))
-
-                    print(pygame.mouse.get_pos())
-                    print(self.duck.entities)
+                            self.duck.entities[list_position].delete_duck(pygame.mouse.get_pos(), self.duck, list_position)                   
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_a:
+                        self.player1.update_left_movements(self.screen)
+                    elif event.key == pygame.K_d:
+                        self.player1.update_right_movements(self.screen)
+                   
+                    
             
+    def game_loop(self):
+
+        pygame.time.set_timer(pygame.USEREVENT,0)
+        
+        # Screen refresh rate
+        self.clock.tick(self.FPS)
+        
+
+        while True:
             self.menu.render_menu(self.screen, self.WIDTH, self.HEIGHT)
+            # Controls during the loop
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_DOWN:
+                        self.menu.move_cursor_down()
+                    elif event.key == pygame.K_UP:
+                        self.menu.move_cursor_up()
+                    elif event.key == pygame.K_RETURN:
+                        self.game_a_loop()
 
-            # Character rendering
-            if (1 == 0):
-                # Screen settings            
-                self.screen.fill((255, 255, 255))
-                self.screen.blit(self.bg, (0, 0))
-                for ducks in self.duck.entities:
-                    ducks.render_duck(self.screen)
-
-                self.dog.render_dog(self.screen)
-                self.player1.render_player_movements(pygame.key.get_pressed(), self.screen)
-            
-            
             # Screen update
             pygame.display.update()
             #time.sleep(0)
